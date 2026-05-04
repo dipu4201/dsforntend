@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DS Store BD — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="login-page" id="loginPage">
+  <div class="login-bg">
+    <div class="login-orb o1"></div>
+    <div class="login-orb o2"></div>
+    <div class="grid-bg"></div>
+  </div>
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="logo-ds">DS</span>
+      <span class="logo-label">ADMIN PANEL</span>
+    </div>
+    <p class="login-sub">Authorized Personnel Only</p>
+    <form onsubmit="adminLogin(event)">
+      <div class="inp-group">
+        <label>Email Address</label>
+        <input type="email" id="adminEmail" placeholder="admin@dsshop.com" required>
+      </div>
+      <div class="inp-group">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-gold w-full" id="loginBtn">
+        <span>Access Dashboard</span>
+        <span class="arrow">→</span>
+      </button>
+    </form>
+    <div class="login-msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="admin-wrap" id="adminWrap" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-ds">DS</span>
+      <div>
+        <span class="logo-label">STORE BD</span>
+        <span class="logo-sub">Admin Panel</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">MAIN</div>
+      <a class="nav-item active" onclick="showPage('dashboard')">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="nav-item" onclick="showPage('orders')">
+        <span class="nav-icon">📦</span> Orders
+        <span class="nav-badge" id="pendingBadge">0</span>
+      </a>
+      <a class="nav-item" onclick="showPage('products')">
+        <span class="nav-icon">🛍️</span> Products
+      </a>
+      <div class="nav-section">MANAGEMENT</div>
+      <a class="nav-item" onclick="showPage('users')">
+        <span class="nav-icon">👥</span> Users
+      </a>
+      <a class="nav-item" onclick="showPage('slider')">
+        <span class="nav-icon">🖼️</span> Slider
+      </a>
+      <div class="nav-section">SETTINGS</div>
+      <a class="nav-item" onclick="showPage('settings')">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+      <a class="nav-item" onclick="showPage('payment')">
+        <span class="nav-icon">💳</span> Payment
+      </a>
+      <div class="nav-section">ACCOUNT</div>
+      <a class="nav-item logout" onclick="adminLogout()">
+        <span class="nav-icon">🚪</span> Logout
+      </a>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="userAvatar">A</div>
+      <div>
+        <div class="user-name" id="userName">Admin</div>
+        <div class="user-role">Administrator</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-title" id="pageTitle">Dashboard</div>
+      <div class="topbar-right">
+        <div class="topbar-time" id="topbarTime"></div>
+        <a href="index.html" target="_blank" class="btn-visit">Visit Site →</a>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>Dashboard Overview</h1>
+        <p>Welcome back, <span id="welcomeName">Admin</span>!</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(201,168,76,0.1)">📦</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-orders">—</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-trend up">↑</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(46,213,115,0.1)">💰</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-revenue">—</div>
+            <div class="stat-label">Total Revenue</div>
+          </div>
+          <div class="stat-trend up">↑</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(255,107,107,0.1)">⏳</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-pending">—</div>
+            <div class="stat-label">Pending Orders</div>
+          </div>
+          <div class="stat-trend down">!</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(116,185,255,0.1)">🛍️</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-products">—</div>
+            <div class="stat-label">Products</div>
+          </div>
+          <div class="stat-trend up">↑</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(162,155,254,0.1)">👥</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-users">—</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+          <div class="stat-trend up">↑</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(253,203,110,0.1)">✅</div>
+          <div class="stat-info">
+            <div class="stat-num" id="st-delivered">—</div>
+            <div class="stat-label">Delivered</div>
+          </div>
+          <div class="stat-trend up">↑</div>
+        </div>
+      </div>
+      <div class="recent-section">
+        <div class="section-head">
+          <h2>Recent Orders</h2>
+          <button class="btn-sm" onclick="showPage('orders')">View All →</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Payment</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="recentOrdersBody"><tr><td colspan="6" class="loading-row">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="page-header">
+        <h1>Orders Management</h1>
+        <div class="filter-row">
+          <select id="orderFilter" onchange="filterOrders()" class="filter-select">
+            <option value="">All Orders</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Items</th><th>Amount</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="ordersBody"><tr><td colspan="9" class="loading-row">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="page" id="page-products">
+      <div class="page-header">
+        <h1>Products Management</h1>
+        <button class="btn-gold" onclick="openProductForm()">+ Add Product</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="productsBody"><tr><td colspan="7" class="loading-row">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="page" id="page-users">
+      <div class="page-header">
+        <h1>Users Management</h1>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+          <tbody id="usersBody"><tr><td colspan="7" class="loading-row">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SLIDER -->
+    <div class="page" id="page-slider">
+      <div class="page-header">
+        <h1>Slider Management</h1>
+        <button class="btn-gold" onclick="openSliderForm()">+ Add Slide</button>
+      </div>
+      <div class="slider-grid" id="sliderGrid">
+        <div class="loading-row">Loading...</div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="page-header"><h1>Shop Settings</h1></div>
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>General Info</h3>
+          <form onsubmit="saveSettings(event)">
+            <div class="inp-group"><label>Shop Name</label><input type="text" id="s-shopName" placeholder="DS Store BD"></div>
+            <div class="inp-group"><label>Contact Phone</label><input type="tel" id="s-phone" placeholder="+880..."></div>
+            <div class="inp-group"><label>Contact Email</label><input type="email" id="s-email" placeholder="info@dsshop.com"></div>
+            <div class="inp-group"><label>Address</label><textarea id="s-address" rows="3" placeholder="Shop address..."></textarea></div>
+            <div class="inp-group"><label>Delivery Charge (৳)</label><input type="number" id="s-delivery" placeholder="60"></div>
+            <div class="inp-group"><label>Free Delivery Above (৳)</label><input type="number" id="s-freeDelivery" placeholder="1000"></div>
+            <button type="submit" class="btn-gold">Save Settings →</button>
+          </form>
+        </div>
+        <div class="settings-card">
+          <h3>Social Links</h3>
+          <form onsubmit="saveSocial(event)">
+            <div class="inp-group"><label>Facebook URL</label><input type="url" id="s-facebook" placeholder="https://facebook.com/..."></div>
+            <div class="inp-group"><label>WhatsApp Number</label><input type="tel" id="s-whatsapp" placeholder="+880..."></div>
+            <div class="inp-group"><label>Instagram URL</label><input type="url" id="s-instagram" placeholder="https://instagram.com/..."></div>
+            <button type="submit" class="btn-gold">Save Social →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="page" id="page-payment">
+      <div class="page-header"><h1>Payment Settings</h1></div>
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3 style="color:#e2136e">bKash Settings</h3>
+          <form onsubmit="savePayment(event,'bkash')">
+            <div class="inp-group"><label>bKash Number</label><input type="tel" id="p-bkash" placeholder="01XXXXXXXXX"></div>
+            <div class="inp-group"><label>Instructions</label><textarea id="p-bkashInstr" rows="3" placeholder="Send money and enter Transaction ID..."></textarea></div>
+            <button type="submit" class="btn-gold">Save bKash →</button>
+          </form>
+        </div>
+        <div class="settings-card">
+          <h3 style="color:#f06922">Nagad Settings</h3>
+          <form onsubmit="savePayment(event,'nagad')">
+            <div class="inp-group"><label>Nagad Number</label><input type="tel" id="p-nagad" placeholder="01XXXXXXXXX"></div>
+            <div class="inp-group"><label>Instructions</label><textarea id="p-nagadInstr" rows="3" placeholder="Send money and enter Transaction ID..."></textarea></div>
+            <button type="submit" class="btn-gold">Save Nagad →</button>
+          </form>
+        </div>
+        <div class="settings-card">
+          <h3 style="color:#8b1a8b">Rocket Settings</h3>
+          <form onsubmit="savePayment(event,'rocket')">
+            <div class="inp-group"><label>Rocket Number</label><input type="tel" id="p-rocket" placeholder="01XXXXXXXXX"></div>
+            <div class="inp-group"><label>Instructions</label><textarea id="p-rocketInstr" rows="3" placeholder="Send money and enter Transaction ID..."></textarea></div>
+            <button type="submit" class="btn-gold">Save Rocket →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODALS -->
+<!-- Product Form Modal -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="productModalTitle">Add Product</h3>
+      <button onclick="closeModal('productModal')">✕</button>
+    </div>
+    <form onsubmit="saveProduct(event)" id="productForm">
+      <input type="hidden" id="p-id">
+      <div class="form-grid">
+        <div class="inp-group"><label>Product Name *</label><input type="text" id="p-name" required placeholder="Premium T-Shirt"></div>
+        <div class="inp-group"><label>Category *</label>
+          <select id="p-category" required>
+            <option value="">Select category</option>
+            <option value="tshirt">T-Shirt</option>
+            <option value="mug">Mug</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="polo">Polo</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="inp-group"><label>Price (৳) *</label><input type="number" id="p-price" required placeholder="450"></div>
+        <div class="inp-group"><label>Stock</label><input type="number" id="p-stock" placeholder="100"></div>
+        <div class="inp-group full"><label>Description</label><textarea id="p-desc" rows="3" placeholder="Product description..."></textarea></div>
+        <div class="inp-group"><label>Colors (comma separated)</label><input type="text" id="p-colors" placeholder="#000000, #ffffff, #c9a84c"></div>
+        <div class="inp-group"><label>Sizes (comma separated)</label><input type="text" id="p-sizes" placeholder="S, M, L, XL, XXL"></div>
+        <div class="inp-group"><label>Image URL</label><input type="url" id="p-image" placeholder="https://..."></div>
+        <div class="inp-group">
+          <label>Customizable</label>
+          <select id="p-custom">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="inp-group">
+          <label>Status</label>
+          <select id="p-active">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline" onclick="closeModal('productModal')">Cancel</button>
+        <button type="submit" class="btn-gold">Save Product →</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <h3>Order Details</h3>
+      <button onclick="closeModal('orderModal')">✕</button>
+    </div>
+    <div id="orderDetailContent"></div>
+  </div>
+</div>
+
+<!-- Slider Form Modal -->
+<div class="modal-overlay" id="sliderModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="sliderModalTitle">Add Slide</h3>
+      <button onclick="closeModal('sliderModal')">✕</button>
+    </div>
+    <form onsubmit="saveSlider(event)">
+      <input type="hidden" id="sl-id">
+      <div class="inp-group"><label>Image URL *</label><input type="url" id="sl-image" required placeholder="https://..."></div>
+      <div class="inp-group"><label>Title</label><input type="text" id="sl-title" placeholder="Slide Title"></div>
+      <div class="inp-group"><label>Subtitle</label><input type="text" id="sl-subtitle" placeholder="Slide Subtitle"></div>
+      <div class="inp-group"><label>Link URL</label><input type="url" id="sl-link" placeholder="https://..."></div>
+      <div class="inp-group"><label>Order</label><input type="number" id="sl-order" placeholder="0"></div>
+      <div class="inp-group"><label>Status</label>
+        <select id="sl-active">
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline" onclick="closeModal('sliderModal')">Cancel</button>
+        <button type="submit" class="btn-gold">Save Slide →</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-head"><h3>Confirm Action</h3><button onclick="closeModal('confirmModal')">✕</button></div>
+    <p id="confirmMsg" style="color:var(--gray);margin:20px 0">Are you sure?</p>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn-danger" id="confirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>
