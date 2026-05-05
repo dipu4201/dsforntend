@@ -44,7 +44,8 @@ async function adminLogin(e) {
   btn.innerHTML = '<span>Authenticating...</span>';
   btn.disabled = true;
 
-  const result = await api('/auth/login', 'POST', {
+  console.log('API URL:', API);
+const result = await api('/auth/login', 'POST', {
     email: document.getElementById('adminEmail').value,
     password: document.getElementById('adminPass').value
   });
@@ -60,8 +61,8 @@ async function adminLogin(e) {
     msg.textContent = 'Access denied. Admin accounts only.';
     msg.className = 'login-msg error';
   } else {
-    msg.textContent = result?.message || 'Invalid email or password.';
-    msg.className = 'login-msg error';
+  console.log('Login failed:', JSON.stringify(result));
+  msg.textContent = result?.message || 'Invalid email or password.';
   }
 }
 
