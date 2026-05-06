@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DS Store BD — Digital & Smart Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo"><span>China</span><span class="accent">Mart</span></div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>🚚 Free Delivery Above ৳999 | Fast Shipping All Over Bangladesh</span>
+    <div class="topbar-right">
+      <span>📞 01700-000000</span>
+      <span>|</span>
+      <a href="#" class="topbar-link">Track Order</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="logo-main">China</span><span class="logo-accent">Mart</span><span class="logo-bd">BD</span>
+    </div>
+    <div class="nav-search">
+      <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProducts(this.value)">
+      <button class="search-btn">🔍</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-login" onclick="openModal('loginModal')">
+        <span>👤</span> Login
+      </button>
+      <div class="cart-btn" onclick="openCart()">
+        <span>🛒</span>
+        <span class="cart-badge" id="cartCount">0</span>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <!-- CATEGORIES NAV -->
+  <div class="cat-nav" id="catNav">
+    <div class="cat-nav-inner">
+      <a class="cat-nav-item active" onclick="filterCat('all', this)">🏠 All Products</a>
+      <a class="cat-nav-item" onclick="filterCat('lighting', this)">💡 Lighting</a>
+      <a class="cat-nav-item" onclick="filterCat('electronics', this)">📱 Electronics</a>
+      <a class="cat-nav-item" onclick="filterCat('toys', this)">🧸 Toys & Kids</a>
+      <a class="cat-nav-item" onclick="filterCat('home', this)">🏡 Home & Kitchen</a>
+      <a class="cat-nav-item" onclick="filterCat('women', this)">👗 Women's</a>
+      <a class="cat-nav-item" onclick="filterCat('men', this)">👔 Men's</a>
+      <a class="cat-nav-item" onclick="filterCat('general', this)">🛍️ General</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="filterCat('all');toggleMenu()">🏠 All Products</a>
+  <a onclick="filterCat('lighting');toggleMenu()">💡 Lighting</a>
+  <a onclick="filterCat('electronics');toggleMenu()">📱 Electronics</a>
+  <a onclick="filterCat('toys');toggleMenu()">🧸 Toys & Kids</a>
+  <a onclick="filterCat('home');toggleMenu()">🏡 Home & Kitchen</a>
+  <a onclick="filterCat('women');toggleMenu()">👗 Women's</a>
+  <a onclick="filterCat('men');toggleMenu()">👔 Men's</a>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero-slider" id="home">
+  <div class="slider-container" id="sliderContainer">
+    <div class="slide active" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6)">
+      <div class="slide-content">
+        <div class="slide-badge">🔥 New Arrivals</div>
+        <h1>Premium Chinese<br><span>Products</span></h1>
+        <p>Quality products at the best prices. Shop now!</p>
+        <div class="slide-btns">
+          <a href="#products" class="btn-primary">Shop Now →</a>
+          <a href="#categories" class="btn-secondary">Browse Categories</a>
+        </div>
+      </div>
+      <div class="slide-img">🛍️</div>
+    </div>
+    <div class="slide" style="background:linear-gradient(135deg,#1e40af,#0ea5e9)">
+      <div class="slide-content">
+        <div class="slide-badge">⚡ Hot Deals</div>
+        <h1>Amazing Lighting<br><span>Collection</span></h1>
+        <p>Transform your home with premium LED lights</p>
+        <div class="slide-btns">
+          <a href="#products" class="btn-primary">Explore Now →</a>
+          <a href="#categories" class="btn-secondary">View All</a>
+        </div>
+      </div>
+      <div class="slide-img">💡</div>
+    </div>
+    <div class="slide" style="background:linear-gradient(135deg,#1d4ed8,#06b6d4)">
+      <div class="slide-content">
+        <div class="slide-badge">🎁 Kids Special</div>
+        <h1>Fun Toys &<br><span>Kids Products</span></h1>
+        <p>Make your children smile with amazing toys</p>
+        <div class="slide-btns">
+          <a href="#products" class="btn-primary">Shop Kids →</a>
+          <a href="#categories" class="btn-secondary">View All</a>
+        </div>
+      </div>
+      <div class="slide-img">🧸</div>
+    </div>
+  </div>
+  <button class="slider-prev" onclick="prevSlide()">❮</button>
+  <button class="slider-next" onclick="nextSlide()">❯</button>
+  <div class="slider-dots" id="sliderDots">
+    <span class="dot active" onclick="goToSlide(0)"></span>
+    <span class="dot" onclick="goToSlide(1)"></span>
+    <span class="dot" onclick="goToSlide(2)"></span>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="promo-banner">
+  <div class="promo-grid">
+    <div class="promo-card blue">
+      <span class="promo-icon">🚚</span>
+      <div><strong>Free Delivery</strong><p>On orders above ৳999</p></div>
+    </div>
+    <div class="promo-card">
+      <span class="promo-icon">✅</span>
+      <div><strong>Quality Assured</strong><p>100% genuine products</p></div>
+    </div>
+    <div class="promo-card">
+      <span class="promo-icon">🔄</span>
+      <div><strong>Easy Returns</strong><p>7 days return policy</p></div>
+    </div>
+    <div class="promo-card">
+      <span class="promo-icon">💳</span>
+      <div><strong>Secure Payment</strong><p>bKash, Nagad, COD</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories-section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <h2>Shop by <span>Category</span></h2>
+      <p>Explore our wide range of product categories</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterCat('lighting')">
+        <div class="cat-emoji">💡</div>
+        <h3>Lighting</h3>
+        <p>LED, Fairy Lights & More</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('electronics')">
+        <div class="cat-emoji">📱</div>
+        <h3>Electronics</h3>
+        <p>Gadgets & Accessories</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('toys')">
+        <div class="cat-emoji">🧸</div>
+        <h3>Toys & Kids</h3>
+        <p>Fun for All Ages</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('home')">
+        <div class="cat-emoji">🏡</div>
+        <h3>Home & Kitchen</h3>
+        <p>Smart Home Products</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('women')">
+        <div class="cat-emoji">👗</div>
+        <h3>Women's</h3>
+        <p>Fashion & Beauty</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('men')">
+        <div class="cat-emoji">👔</div>
+        <h3>Men's</h3>
+        <p>Style & Essentials</p>
+      </div>
+      <div class="cat-card" onclick="filterCat('general')">
+        <div class="cat-emoji">🛍️</div>
+        <h3>General</h3>
+        <p>Everything Else</p>
+      </div>
+      <div class="cat-card special" onclick="filterCat('all')">
+        <div class="cat-emoji">🔥</div>
+        <h3>Hot Deals</h3>
+        <p>Best Prices Today</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="section-head">
+      <h2>Featured <span>Products</span></h2>
+      <p>Handpicked best sellers for you</p>
+    </div>
+    <div class="products-filter">
+      <button class="filter-btn active" onclick="filterCat('all', this)">All</button>
+      <button class="filter-btn" onclick="filterCat('lighting', this)">💡 Lighting</button>
+      <button class="filter-btn" onclick="filterCat('electronics', this)">📱 Electronics</button>
+      <button class="filter-btn" onclick="filterCat('toys', this)">🧸 Toys</button>
+      <button class="filter-btn" onclick="filterCat('home', this)">🏡 Home</button>
+      <button class="filter-btn" onclick="filterCat('women', this)">👗 Women</button>
+      <button class="filter-btn" onclick="filterCat('men', this)">👔 Men</button>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+      </div>
+    </div>
+    <div class="load-more-wrap">
+      <button class="btn-load-more" id="loadMoreBtn" onclick="loadMoreProducts()" style="display:none">Load More Products</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <h2>Customer <span>Reviews</span></h2>
+      <p>What our happy customers say</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Amazing quality products! Got my LED lights within 2 days. Will definitely order again!"</p>
+        <div class="review-author">
+          <div class="author-avatar">R</div>
+          <div><strong>Rahim Ahmed</strong><span>Dhaka</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Best Chinese products store in Bangladesh. Prices are very reasonable and delivery is fast!"</p>
+        <div class="review-author">
+          <div class="author-avatar">S</div>
+          <div><strong>Sumaiya Islam</strong><span>Chittagong</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Bought toys for my kids. They absolutely love them! Great quality and safe for children."</p>
+        <div class="review-author">
+          <div class="author-avatar">K</div>
+          <div><strong>Karim Hossain</strong><span>Sylhet</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Excellent home products! My kitchen looks amazing now. Very happy with the purchase!"</p>
+        <div class="review-author">
+          <div class="author-avatar">N</div>
+          <div><strong>Nasrin Begum</strong><span>Rajshahi</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Great women's fashion products at amazing prices. Love the quality!"</p>
+        <div class="review-author">
+          <div class="author-avatar">F</div>
+          <div><strong>Fatema Khatun</strong><span>Comilla</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p>"The electronics are top notch! Got a phone stand and earphones, both working perfectly!"</p>
+        <div class="review-author">
+          <div class="author-avatar">T</div>
+          <div><strong>Taher Ali</strong><span>Khulna</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2>Get Exclusive <span>Deals</span></h2>
+        <p>Subscribe to get the latest offers and new arrivals</p>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email address">
+        <button class="btn-primary">Subscribe →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:12px">
+        <span class="logo-main">China</span><span class="logo-accent">Mart</span><span class="logo-bd">BD</span>
+      </div>
+      <p>Bangladesh's trusted source for premium Chinese products at the best prices.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">Facebook</a>
+        <a href="#" class="social-btn">WhatsApp</a>
+        <a href="#" class="social-btn">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#" onclick="filterCat('lighting')">Lighting</a></li>
+        <li><a href="#" onclick="filterCat('electronics')">Electronics</a></li>
+        <li><a href="#" onclick="filterCat('toys')">Toys & Kids</a></li>
+        <li><a href="#" onclick="filterCat('home')">Home & Kitchen</a></li>
+        <li><a href="#" onclick="filterCat('women')">Women's</a></li>
+        <li><a href="#" onclick="filterCat('men')">Men's</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <div class="payment-icons">
+        <span class="pay-icon bkash">bKash</span>
+        <span class="pay-icon nagad">Nagad</span>
+        <span class="pay-icon cod">COD</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 DS Store BDBD. All rights reserved. | Made with ❤️ in Bangladesh</p>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head">
+    <h3>🛒 Your Cart</h3>
+    <button onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="empty-cart"><span>🛒</span><p>Your cart is empty</p></div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total-row">
+      <span>Total:</span>
+      <span id="cartTotal" class="cart-total-amt">৳0</span>
+    </div>
+    <button class="btn-primary w-full" onclick="openCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" onclick="closeModalOut(event,'loginModal')">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal('loginModal')">✕</button>
+    <div class="modal-logo">
+      <span class="logo-main">China</span><span class="logo-accent">Mart</span><span class="logo-bd">BD</span>
+    </div>
+    <div class="modal-tabs">
+      <button class="tab active" onclick="switchTab('login')">Login</button>
+      <button class="tab" onclick="switchTab('register')">Register</button>
+    </div>
+    <form id="loginForm" onsubmit="doLogin(event)">
+      <div class="field"><input type="email" id="lEmail" placeholder="Email Address" required></div>
+      <div class="field"><input type="password" id="lPass" placeholder="Password" required></div>
+      <button type="submit" class="btn-primary w-full">Sign In →</button>
+    </form>
+    <form id="registerForm" style="display:none" onsubmit="doRegister(event)">
+      <div class="field"><input type="text" id="rName" placeholder="Full Name" required></div>
+      <div class="field"><input type="email" id="rEmail" placeholder="Email Address" required></div>
+      <div class="field"><input type="tel" id="rPhone" placeholder="Phone Number"></div>
+      <div class="field"><input type="password" id="rPass" placeholder="Password" required></div>
+      <button type="submit" class="btn-primary w-full">Create Account →</button>
+    </form>
+    <div id="authMsg" class="auth-msg"></div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal" onclick="closeModalOut(event,'productModal')">
+  <div class="modal modal-wide">
+    <button class="modal-x" onclick="closeModal('productModal')">✕</button>
+    <div id="productDetail"></div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal" onclick="closeModalOut(event,'orderModal')">
+  <div class="modal modal-wide">
+    <button class="modal-x" onclick="closeModal('orderModal')">✕</button>
+    <h3 style="padding:24px 24px 0;font-size:20px">Complete Your Order</h3>
+    <form onsubmit="placeOrder(event)" style="padding:24px">
+      <div class="order-grid">
+        <div>
+          <h4 class="form-title">Delivery Information</h4>
+          <div class="field"><input type="text" id="oName" placeholder="Full Name" required></div>
+          <div class="field"><input type="tel" id="oPhone" placeholder="Phone Number" required></div>
+          <div class="field"><input type="email" id="oEmail" placeholder="Email (optional)"></div>
+          <div class="field"><textarea id="oAddress" placeholder="Full Delivery Address" rows="3" required></textarea></div>
+          <div class="field"><textarea id="oNote" placeholder="Special Note (optional)" rows="2"></textarea></div>
+          <h4 class="form-title">Payment Method</h4>
+          <div class="pay-methods">
+            <label class="pay-opt"><input type="radio" name="pay" value="bkash" required><span>bKash</span></label>
+            <label class="pay-opt"><input type="radio" name="pay" value="nagad"><span>Nagad</span></label>
+            <label class="pay-opt"><input type="radio" name="pay" value="rocket"><span>Rocket</span></label>
+            <label class="pay-opt"><input type="radio" name="pay" value="cod"><span>Cash on Delivery</span></label>
+          </div>
+          <div id="payInstr" class="pay-instr"></div>
+          <div id="txnGroup" style="display:none">
+            <div class="field"><input type="text" id="txnId" placeholder="Transaction ID"></div>
+            <div class="field"><input type="text" id="payNum" placeholder="Your Payment Number"></div>
+          </div>
+        </div>
+        <div class="order-summary-box">
+          <h4 class="form-title">Order Summary</h4>
+          <div id="orderItemsBox"></div>
+          <div class="summary-row"><span>Subtotal:</span><span id="oSubtotal">৳0</span></div>
+          <div class="summary-row"><span>Delivery:</span><span id="oDelivery">৳60</span></div>
+          <div class="summary-row total"><span>Total:</span><span id="oTotal">৳0</span></div>
+          <button type="submit" class="btn-primary w-full">Place Order →</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="app.js"></script>
+</body>
+</html>
